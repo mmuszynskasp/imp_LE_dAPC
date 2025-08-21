@@ -12,9 +12,10 @@ library(mgcv)
 library(splines)
 library(patchwork)
 
-models.dir <- #your directory to save the model results data
-out.dir <- #your directory with data prepared in the last step
 
+models.dir <- "your directory"
+out.dir <- "your directory"
+plot.dir <- "your directory"
 
 setwd(out.dir)
 lexis <- read.table(file="lexis.csv", sep=",", header=TRUE)
@@ -55,6 +56,11 @@ drift <- mymodel2$Drift[1,1]
 mydrift <- cbind(drift,countrysel,sexsel)
 write.table(mydrift, file="driftbs10w.csv",sep=",",row.names = FALSE)
 
+myanova <- cbind(mymodel2$Anova$Model, mymodel2$Anova$`Mod. dev.`, countrysel,sexsel)
+colnames(myanova) <- c("model","dev","country", "sex")
+write.table(myanova, file="myanovabs10w.csv",sep=",",row.names = FALSE)
+
+
 for (i in 1:length(countries)){  #make the full loop again and then remove the duplicates when reading the data
   for (j in 1:length(sexes)){
     countrysel <- countries[i]
@@ -84,6 +90,10 @@ for (i in 1:length(countries)){  #make the full loop again and then remove the d
     drift <- mymodel2$Drift[1,1]
     mydrift <- cbind(drift,countrysel,sexsel)
     write.table(mydrift, file="driftbs10w.csv",sep=",",row.names = FALSE, col.names=FALSE, append=TRUE)
+    
+    myanova <- cbind(mymodel2$Anova$Model, mymodel2$Anova$`Mod. dev.`, countrysel,sexsel)
+    colnames(myanova) <- c("model","dev","country", "sex")
+    write.table(myanova, file="myanovabs10w.csv",sep=",",row.names = FALSE, col.names=FALSE, append=TRUE)
     
   }    
 } 

@@ -7,17 +7,17 @@ library(tidyr)
 library(dplyr)
 library(HMDHFDplus)
 
-out.dir <- #your path
-plot.dir <- #your path
+out.dir <- "your directory"
+plot.dir <- "your directory"
 
-username <- # replace with your username
-password <- # replace with your password
+username <- # your username
+password <- # your password
 
 
 countries <- c("CHE", "DNK", "FIN","FRATNP", "GBRTENW","ITA","NLD","NOR","SWE")  
 sexes <- c("Female","Male")
   
-ourcohorts <- 1885:1973
+ourcohorts <- 1885:1954
 years <- 1980:2019 
 ages <- 65:94
 
@@ -63,4 +63,4 @@ for (i in 2:length(countries)){
            Cohort=ifelse(older==0,as.numeric(Cohort)+1/3,as.numeric(Cohort)+2/3))
   write.table(lexis, file="lexis.csv", sep=",", row.names = FALSE, col.names=FALSE, append=TRUE)
 }
-}
+
