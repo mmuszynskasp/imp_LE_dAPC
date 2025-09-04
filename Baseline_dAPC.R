@@ -26,7 +26,7 @@ pc_data_si <- read.table(file="lexis.csv", sep=",", header=TRUE) %>%
   left_join(read.table(file=paste(models.dir,"multip.csv",sep=""),sep=",", header = TRUE) %>%
               rename("year"="Year", "age"="Age") %>%
               mutate(sex=ifelse(sex=="fem","Female","Male"))) %>%
-  mutate(Dxi=Dx*(multip^(-0.25)),  ##### adjustment for the frailty variance=0.5
+  mutate(Dxi=Dx*(multip^(-0.25)),  ##### adjustment for the frailty variance=0.25
          D=round(Dxi), Y=round(Exp),
          A = Age, P = Year)
   
